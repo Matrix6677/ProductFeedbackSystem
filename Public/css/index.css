@@ -1,0 +1,15 @@
+.input-group {
+    width: 100%;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+#middle {
+    margin-top: 60px;
+}
+
+#footer{
+    background: #F8F8F8;
+}
