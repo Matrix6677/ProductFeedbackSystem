@@ -23,16 +23,16 @@ if (isset($_POST) && ! empty($_POST)) {
             $rs_arr = $db->query($sql)->fetchAll();
             break;
         case 'record': // 录入数据
-            if (empty($_POST["username"]) || empty($_POST["product"]) || empty($_POST["platform"]) || empty($_POST["version"]) || empty($_POST["content"])) {
+            if (empty($_POST["time"]) || empty($_POST["username"]) || empty($_POST["product"]) || empty($_POST["platform"]) || empty($_POST["version"]) || empty($_POST["content"])) {
                 $rs_arr = 0;
             } else {
-                $sql = "INSERT INTO feedbacks values(null,datetime('now'),";
-                $sql .= "'" . htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8') . "'" . ',';
-                $sql .= "'" . htmlspecialchars($_POST['product'], ENT_QUOTES, 'UTF-8') . "'" . ',';
-                $sql .= "'" . htmlspecialchars($_POST['platform'], ENT_QUOTES, 'UTF-8') . "'" . ',';
-                $sql .= "'" . htmlspecialchars($_POST['version'], ENT_QUOTES, 'UTF-8') . "'" . ',';
-                $sql .= "'" . htmlspecialchars($_POST['channel'], ENT_QUOTES, 'UTF-8') . "'" . ',';
-                $sql .= "'" . htmlspecialchars($_POST['content'], ENT_QUOTES, 'UTF-8') . "'" . ",0)";
+                $sql = "INSERT INTO feedbacks values(null,'".$_POST["time"]."',";
+                $sql .= "'" . htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8') . "',";
+                $sql .= "'" . htmlspecialchars($_POST['product'], ENT_QUOTES, 'UTF-8') . "',";
+                $sql .= "'" . htmlspecialchars($_POST['platform'], ENT_QUOTES, 'UTF-8') . "',";
+                $sql .= "'" . htmlspecialchars($_POST['version'], ENT_QUOTES, 'UTF-8') . "',";
+                $sql .= "'" . htmlspecialchars($_POST['channel'], ENT_QUOTES, 'UTF-8') . "',";
+                $sql .= "'" . htmlspecialchars($_POST['content'], ENT_QUOTES, 'UTF-8') . "',0)";
                 $rs = $db->exec($sql);
                 $rs_arr = $rs;
             }
@@ -46,6 +46,7 @@ if (isset($_POST) && ! empty($_POST)) {
             $sql .= "version like '%" . (! isset($_POST['version']) ? '' : $_POST['version']) . "%' and ";
             $sql .= "channel like '%" . (! isset($_POST['channel']) ? '' : $_POST['channel']) . "%' and ";
             $sql .= "isKilled like '%" . (! isset($_POST['isKilled']) ? '' : $_POST['isKilled']) . "%'";
+			$sql .= " order by dateTime desc";
             $rs_arr = $db->query($sql)->fetchAll();
             break;
     }

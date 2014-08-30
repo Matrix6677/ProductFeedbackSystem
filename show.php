@@ -9,13 +9,15 @@
 </head>
 <?php
     $db = new PDO('sqlite:feedback.db');
-    $sql = "select * from feedbacks order by dateTime asc";
+    $sql = "select * from feedbacks order by dateTime desc";
     $rs_arr = $db->query($sql)->fetchAll();
 ?>
 <body>
 	<div class="container-fluid">
         <nav id="header" class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <h3 class="text-center">BP系统:Better Product</h3>
+            <h3 class="text-center">BP系统:Better Product
+				<a href="./index.php">提意见</a>
+			</h3>
         </nav>
         <div id="middle" class = "row">
             <div class = "col-md-2"></div>
@@ -100,8 +102,8 @@
                                     <span class="input-group-addon">状态：</span>
                                     <select id="isKilled" class="form-control" name = "isKilled" >
                                         <option></option>
-                                        <option>0</option>
-                                        <option>1</option>
+                                        <option value="0">未修复</option>
+                                        <option value="1">已修复</option>
                                     </select>
                                 </div>
                             </td>
@@ -115,14 +117,13 @@
                     </table>
                 </form>
                 <table id="gather" class="table table-striped table-bordered">
-                    <col style="width: 17%" />
-                    <col style="width: 8%" />
-                    <col style="width: 9%" />
-                    <col style="width: 7%" />
-                    <col style="width: 7%" />
-                    <col style="width: 9%" />
-                    <col style="width: 18%" />
-                    <col style="width: 8%" />
+					<col style="width: 11%;">
+                    <col style="width: 6%;">
+                    <col style="width: 10%;">
+                    <col style="width: 7%;">
+                    <col style="width: 6%;">
+                    <col style="width: 11%;">
+                    <col style="width: 6%;">
                     <tr>
                         <th>日期</th>
                         <th>姓名</th>
@@ -130,22 +131,28 @@
                         <th>平台</th>
                         <th>版本</th>
                         <th>渠道</th>
-                        <th>反馈内容</th>
                         <th>是否修复</th>
                     </tr>
                     <?php
                         foreach ($rs_arr as $row)
                         {
-                            $str = '<tr class="dataRow">';
-                            $str .='<td>'.$row["dateTime"].'</td>';
-                            $str .='<td>'.$row["username"].'</td>';
-                            $str .='<td>'.$row["product"].'</td>';
-                            $str .='<td>'.$row["platform"].'</td>';
-                            $str .='<td>'.$row["version"].'</td>';
-                            $str .='<td>'.$row["channel"].'</td>';
-                            $str .='<td>'.$row["content"].'</td>';
-                            $str .='<td>'.$row["isKilled"].'</td>';
+                            $abc ='<td>'.$row["dateTime"].'</td>';
+                            $abc .='<td>'.$row["username"].'</td>';
+                            $abc .='<td>'.$row["product"].'</td>';
+                            $abc .='<td>'.$row["platform"].'</td>';
+                            $abc .='<td>'.$row["version"].'</td>';
+                            $abc .='<td>'.$row["channel"].'</td>';
+							if($row["isKilled"]){
+								$str = '<tr class="dataRow success">';
+								$str .= $abc;
+								$str .='<td>已修复</td>';
+							}else{
+								$str = '<tr class="dataRow info">';
+								$str .= $abc;
+								$str .='<td>未修复</td>';
+							}
                             $str .= '</tr>';
+                            $str .='<tr class="dataRow"><td colspan="7">'.$row["content"].'</td></tr>';
                             echo $str;
                         }
                     ?>

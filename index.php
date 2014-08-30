@@ -9,7 +9,9 @@
 <body>
 <div class = "container-fluid">
     <nav id="header" class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <h3 class="text-center">BP系统:Better Product</h3>
+        <h3 class="text-center">BP系统:Better Product
+			<a href="./show.php">查看意见</a>
+		</h3>
     </nav>
     <div id="middle" class = "row">
         <div class = "col-md-2"></div>
@@ -75,6 +77,7 @@
                             <label>反馈内容</label>
                             <textarea id="content" name = "content" class = "form-control" rows = "10"></textarea>
                         </div>
+						<input type="hidden" id="time" name="time" />
                         <input type="hidden" name="tag" value="record">
                         <button type = "submit" class = "btn btn-info pull-right">提  交</button>
                     </form>

@@ -30,6 +30,8 @@ $(function () {
     });
 
     $('#form1').submit(function () {
+		var time = new Date().Format("yyyy-MM-dd hh:mm:ss");
+		$('#time').val(time);
         $.ajax({
             url: "./reciever.php",
             data: $('#form1').serialize(),
